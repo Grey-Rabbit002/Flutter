@@ -1,0 +1,9 @@
+dart widgets may be visible like textfield,text,image...and some may be hidden like container,row
+
+working with onpressed methods for dart in order to connect to other components is important so as to get an idea on how to click button and do some functioning.
+
+
+---------> we passs a pointer to a function and not its value /..
+
+if we wish to update data of a widget then by stateful widget it cannot be achieved as its internal state that is data it contains cannot be changed...
+we achieve this functionality by using stateful widgets...

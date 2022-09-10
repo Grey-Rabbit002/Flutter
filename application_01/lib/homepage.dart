@@ -6,26 +6,29 @@ void main() {
 }
 
 class Home extends StatelessWidget {
-  // const Home({super.key});
-
-  // const Home({super.key});
+  void printText() {
+    print("this is debug console text ");
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Panda")),
+      appBar: AppBar(title: const Text("Panda")),
       drawer: const Drawer(),
-      body: Center(
-          child: Container(
-        child: const Text(
-          "Jujutsu Kaisen",
-          style: TextStyle(
-            fontSize: 40,
-            color: Colors.blue,
-            fontWeight: FontWeight.bold,
+      body: Column(
+        children: [
+          const Text(
+            "Anime_List ",
+            style: TextStyle(fontSize: 30),
           ),
-        ),
-      )),
+          ElevatedButton(
+              onPressed: () {
+                print(
+                    "debug text"); //this is achieved by anonymous function and also we can do by defining our function pointer as printText...
+              },
+              child: const Text("This is a button")),
+        ],
+      ),
     );
   }
 }
