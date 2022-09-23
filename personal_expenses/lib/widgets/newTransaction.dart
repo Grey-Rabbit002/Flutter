@@ -11,7 +11,7 @@ class NewTransaction extends StatefulWidget {
 
 class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
-  DateTime? selectedDate = DateTime.parse('0000-00-00');
+  DateTime selectedDate = DateTime.parse('0000-00-00');
   final amountController = TextEditingController();
 
   void submitData() {
@@ -33,54 +33,70 @@ class _NewTransactionState extends State<NewTransaction> {
             lastDate: DateTime.now())
         .then((pickeddate) {
       setState(() {
-        selectedDate = pickeddate;
+        selectedDate = pickeddate!;
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          TextField(
-            decoration: const InputDecoration(labelText: 'Item Title'),
-            controller: titleController,
-            onSubmitted: (_) => submitData,
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
           ),
-          TextField(
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              labelText: "Item Amount",
-            ),
-            controller: amountController,
-            onSubmitted: (_) => submitData,
-          ),
-          Container(
-            height: 70,
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(selectedDate == DateTime.parse('0000-00-00')
-                      ? 'No date choosen'
-                      : 'Picked Date : ${DateFormat.yMMM().format(selectedDate!)}   '),
-                  ElevatedButton(
-                    onPressed: presentDatePicker,
-                    child: const Text(
-                      "choose date",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                  TextField(
+                    decoration: const InputDecoration(labelText: 'Item Title'),
+                    controller: titleController,
+                    onSubmitted: (_) => submitData,
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: "Item Amount",
                     ),
-                  )
+                    controller: amountController,
+                    onSubmitted: (_) => submitData,
+                  ),
+                  Container(
+                    height: 70,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(selectedDate == DateTime.parse('0000-00-00')
+                              ? 'No date choosen'
+                              : 'Picked Date : ${DateFormat.yMMM().format(selectedDate)}   '),
+                          ElevatedButton(
+                            onPressed: presentDatePicker,
+                            child: const Text(
+                              "choose date",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                      onPressed: submitData,
+                      child: const Text("Add Transaction")),
                 ],
               ),
-            ),
+            ],
           ),
-          ElevatedButton(
-              onPressed: submitData, child: const Text("Add Transaction")),
-        ],
+        ),
       ),
     );
   }
